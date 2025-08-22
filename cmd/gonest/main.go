@@ -120,7 +120,7 @@ func createNewProject(cmd *cobra.Command, args []string) {
 
 	fmt.Printf("✅ GoNest project '%s' created successfully!\n", projectName)
 	fmt.Printf("📁 Navigate to the project: cd %s\n", projectName)
-	fmt.Printf("🚀 Run the application: go run cmd/server/main.go\n")
+	fmt.Printf("🚀 Your project is ready to run! Use: go run cmd/server/main.go\n")
 
 	if strict {
 		fmt.Printf("🔒 Strict mode enabled - additional validation and security features included\n")
@@ -214,6 +214,14 @@ func fileExists(path string) bool {
 
 func runCommand(command string, args ...string) error {
 	cmd := exec.Command(command, args...)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	return cmd.Run()
+}
+
+func runCommandInProject(projectDir, command string, args ...string) error {
+	cmd := exec.Command(command, args...)
+	cmd.Dir = projectDir
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	return cmd.Run()
@@ -330,6 +338,15 @@ require (
 
 	// Generate working modular architecture to demonstrate GoNest's power
 	generateModularArchitecture(projectName)
+
+	// Download dependencies automatically
+	fmt.Printf("📦 Downloading dependencies...\n")
+	if err := runCommandInProject(projectName, "go", "mod", "tidy"); err != nil {
+		fmt.Printf("⚠️  Warning: Failed to download dependencies automatically: %v\n", projectName)
+		fmt.Printf("   You can run 'go mod tidy' manually in the project directory.\n")
+	} else {
+		fmt.Printf("✅ Dependencies downloaded successfully!\n")
+	}
 }
 
 func generateMainGoWithModules(projectName string) string {
