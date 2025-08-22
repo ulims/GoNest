@@ -4,14 +4,12 @@ This guide will walk you through creating a new GoNest project from scratch, inc
 
 ## 🚀 Installation
 
-To get started, you can either use our **CLI tool** (recommended), **automated setup scripts**, or manually set up your project. All approaches will produce the same outcome.
+### 🚀 **CLI Tool - One-Line Installation (Fastest & Recommended)**
 
-### 🚀 CLI Tool (Recommended)
-
-Our CLI tool provides the fastest and most reliable way to create a new GoNest project:
+**Get started in seconds!** Our CLI tool provides the fastest and most reliable way to create a new GoNest project.
 
 ```bash
-# 1. Install GoNest CLI globally (Recommended)
+# 1. Install GoNest CLI globally (Fastest Way)
 $ curl -sSL https://raw.githubusercontent.com/ulims/GoNest/master/install-gonest.sh | bash
 
 # 2. Verify installation
@@ -23,6 +21,11 @@ $ gonest new my-app
 # 4. Create with specific template and strict mode
 $ gonest new my-api --template=api --strict
 ```
+
+**✅ What happens automatically:**
+- CLI tool installed globally
+- All dependencies handled
+- Ready to use immediately
 
 The CLI tool automatically:
 - ✅ Create the recommended project structure
@@ -83,7 +86,7 @@ $ go get github.com/ulims/GoNest
 GoNest includes a powerful CLI tool for project scaffolding and component generation:
 
 ```bash
-# 1. Install GoNest CLI globally (Recommended)
+# 1. Install GoNest CLI globally (Fastest Way)
 $ curl -sSL https://raw.githubusercontent.com/ulims/GoNest/master/install-gonest.sh | bash
 
 # 2. Verify installation

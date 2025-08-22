@@ -228,7 +228,9 @@ GoNest includes a powerful CLI tool for project scaffolding and component genera
 
 ### 📥 **Installation & Setup**
 
-#### **🚀 One-Line Installation (Recommended)**
+#### **🚀 One-Line Installation (Fastest & Recommended)**
+
+**Get started in seconds!** This installer handles everything automatically.
 
 **Linux/macOS:**
 ```bash
@@ -238,11 +240,17 @@ $ curl -sSL https://raw.githubusercontent.com/ulims/GoNest/master/install-gonest
 **Windows:**
 ```cmd
 # Download and run the installer
-$ curl -o install-gonest.bat https://raw.githubusercontent.com/ulims/GoNest/master/install-gonest.bat
-$ install-gonest.bat
+$ curl -o install-gonest.bat https://raw.githubusercontent.com/ulims/GoNest/master/install-gonest.bat && install-gonest.bat
 ```
 
-#### **🔧 Manual Installation**
+**✅ What happens automatically:**
+- CLI tool installed globally
+- All dependencies handled
+- Ready to use immediately
+
+#### **🔧 Alternative Installation Methods**
+
+**Manual Installation:**
 ```bash
 # Clone and install manually
 $ git clone https://github.com/ulims/GoNest.git
@@ -253,7 +261,7 @@ $ go install ./cmd/gonest
 $ gonest --help
 ```
 
-#### **📦 Alternative: Build from source**
+**Build from Source:**
 ```bash
 # Clone and build locally
 $ git clone https://github.com/ulims/GoNest.git
