@@ -4,11 +4,39 @@ This guide will walk you through creating a new GoNest project from scratch, inc
 
 ## 🚀 Installation
 
-To get started, you can either use our **automated setup scripts** (recommended), or manually set up your project. Both approaches will produce the same outcome.
+To get started, you can either use our **CLI tool** (recommended), **automated setup scripts**, or manually set up your project. All approaches will produce the same outcome.
 
-### 🚀 Automated Setup (Recommended)
+### 🚀 CLI Tool (Recommended)
 
-Our setup scripts provide the fastest and most reliable way to create a new GoNest project:
+Our CLI tool provides the fastest and most reliable way to create a new GoNest project:
+
+```bash
+# Install the CLI tool
+$ go install github.com/ulims/GoNest/cmd/gonest@latest
+
+# Create a new project
+$ gonest new my-project-name
+
+# Create with specific template and strict mode
+$ gonest new my-api --template=api --strict
+```
+
+The CLI tool automatically:
+- ✅ Create the recommended project structure
+- ✅ Initialize Go module and Git repository
+- ✅ Install all GoNest dependencies
+- ✅ Generate configuration files
+- ✅ Set up Docker and build automation
+- ✅ Create comprehensive documentation
+- ✅ Support multiple project templates
+- ✅ Generate components (modules, controllers, services)
+
+> **HINT**  
+> The CLI tool is the most reliable way to get started. It handles all dependencies and creates a production-ready project structure.
+
+### 🚀 Automated Setup Scripts
+
+If you prefer to use our setup scripts directly:
 
 #### Linux/macOS
 ```bash
@@ -31,17 +59,6 @@ $ cd GoNest
 $ scripts\setup-project.bat
 ```
 
-The setup scripts automatically:
-- ✅ Create the recommended project structure
-- ✅ Initialize Go module and Git repository
-- ✅ Install all GoNest dependencies
-- ✅ Generate configuration files
-- ✅ Set up Docker and build automation
-- ✅ Create comprehensive documentation
-
-> **HINT**  
-> The setup scripts are the most reliable way to get started. They handle all dependencies and create a production-ready project structure.
-
 ### Alternatives
 
 #### Manual Setup
@@ -59,17 +76,27 @@ $ go mod init my-gonest-app
 $ go get github.com/ulims/GoNest
 ```
 
-#### CLI Tool (Coming Soon)
-We're working on a CLI tool for even faster setup:
+#### CLI Tool
+GoNest includes a powerful CLI tool for project scaffolding and component generation:
 
 ```bash
-# Future CLI commands (not yet available)
+# Install the CLI tool
 $ go install github.com/ulims/GoNest/cmd/gonest@latest
+
+# Create a new project
 $ gonest new my-project-name
+
+# Create with specific template and strict mode
+$ gonest new my-api --template=api --strict
+
+# Generate components in existing projects
+$ gonest generate module user
+$ gonest generate controller user
+$ gonest generate service user
 ```
 
 > **NOTE**  
-> Unlike NestJS, GoNest focuses on providing powerful setup scripts rather than separate starter repositories. This approach gives you more control and keeps everything in one place.
+> Unlike NestJS, GoNest focuses on providing powerful setup scripts and CLI tools rather than separate starter repositories. This approach gives you more control and keeps everything in one place.
 
 ## 🚀 Prerequisites
 

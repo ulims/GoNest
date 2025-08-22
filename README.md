@@ -68,11 +68,39 @@ internal/modules/user/
 
 ## 🚀 Installation
 
-To get started, you can either use our **automated setup scripts** (recommended), or manually set up your project. Both approaches will produce the same outcome.
+To get started, you can either use our **CLI tool** (recommended), **automated setup scripts**, or manually set up your project. All approaches will produce the same outcome.
 
-### 🚀 Automated Setup (Recommended)
+### 🚀 CLI Tool (Recommended)
 
-Our setup scripts provide the fastest and most reliable way to create a new GoNest project:
+Our CLI tool provides the fastest and most reliable way to create a new GoNest project:
+
+```bash
+# Install the CLI tool
+$ go install github.com/ulims/GoNest/cmd/gonest@latest
+
+# Create a new project
+$ gonest new my-project-name
+
+# Create with specific template and strict mode
+$ gonest new my-api --template=api --strict
+```
+
+The CLI tool automatically:
+- ✅ Create the recommended project structure
+- ✅ Initialize Go module and Git repository
+- ✅ Install all GoNest dependencies
+- ✅ Generate configuration files
+- ✅ Set up Docker and build automation
+- ✅ Create comprehensive documentation
+- ✅ Support multiple project templates
+- ✅ Generate components (modules, controllers, services)
+
+> **HINT**  
+> The CLI tool is the most reliable way to get started. It handles all dependencies and creates a production-ready project structure.
+
+### 🚀 Automated Setup Scripts
+
+If you prefer to use our setup scripts directly:
 
 #### Linux/macOS
 ```bash
@@ -82,7 +110,7 @@ $ cd GoNest
 
 # Make the script executable and run it
 $ chmod +x scripts/setup-project.sh
-$ ./scripts/setup-project.sh my-awesome-app
+$ ./scripts/setup-project.sh my-project-name
 ```
 
 #### Windows
@@ -94,17 +122,6 @@ $ cd GoNest
 # Run the batch script
 $ scripts\setup-project.bat
 ```
-
-The setup scripts automatically:
-- ✅ Create the recommended project structure
-- ✅ Initialize Go module and Git repository
-- ✅ Install all GoNest dependencies
-- ✅ Generate configuration files
-- ✅ Set up Docker and build automation
-- ✅ Create comprehensive documentation
-
-> **HINT**  
-> The setup scripts are the most reliable way to get started. They handle all dependencies and create a production-ready project structure.
 
 ### Alternatives
 
@@ -200,20 +217,39 @@ userModule := gonest.NewModule("UserModule").
 app.ModuleRegistry.Register(userModule)
 ```
 
-## 🛠️ CLI Tool (Coming Soon)
+## 🛠️ CLI Tool
 
-GoNest will include a powerful CLI tool for project management. Currently in development:
+GoNest includes a powerful CLI tool for project scaffolding and component generation:
 
 ```bash
-# Future CLI commands (not yet available)
-gonest new my-project      # Create new project
-gonest build               # Build project
-gonest run                 # Run project
-gonest test                # Run tests
+# Install the CLI tool
+$ go install github.com/ulims/GoNest/cmd/gonest@latest
+
+# Create a new project
+$ gonest new my-project-name
+
+# Create with specific template and strict mode
+$ gonest new my-api --template=api --strict
+
+# Generate components in existing projects
+$ gonest generate module user
+$ gonest generate controller user
+$ gonest generate service user
+
+# Build and run applications
+$ gonest build
+$ gonest run
+$ gonest test
 ```
 
-> **NOTE**  
-> The CLI tool is currently in development. For now, use our [automated setup scripts](#-automated-setup-recommended) for the best experience.
+### Available Templates
+- **`basic`** (default): Standard GoNest project structure
+- **`api`**: API-focused project with Swagger documentation
+- **`fullstack`**: Full-stack application with web templates
+- **`microservice`**: Microservice with gRPC and protobuf support
+
+### Strict Mode
+Enable additional validation and security features with `--strict` flag.
 
 ## 🔧 Key Components
 
