@@ -37,7 +37,10 @@ func main() {
 	app.GET("/", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, map[string]interface{}{
 			"message": "Welcome to GoNest Framework!",
+			"author":  "Agbama Ulimhuka Akem",
+			"email":   "ulimhukaakem@gmail.com",
 			"time":    time.Now(),
+
 		})
 	})
 

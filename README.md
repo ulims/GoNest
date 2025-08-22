@@ -276,6 +276,20 @@ $ go build -o gonest cmd/gonest/main.go       # Linux/macOS
 # Basic project
 $ gonest new my-app
 
+# Navigate to your project
+$ cd my-app
+
+# Dependencies are downloaded automatically by the CLI
+# But if you encounter issues, manually run:
+$ go mod tidy
+
+# Run your application
+$ go run cmd/server/main.go
+```
+
+#### **📋 Project Templates**
+
+```bash
 # API project with strict mode
 $ gonest new my-api --template=api --strict
 
@@ -452,6 +466,41 @@ func TestUserService(t *testing.T) {
 - **📚 Rich Ecosystem**: Comprehensive feature set out of the box
 - **🧪 Testing First**: Built-in testing utilities and patterns
 - **⚡ Quick Setup**: Automated project initialization scripts
+
+## 🛠️ Troubleshooting
+
+### Common Issues
+
+#### **Missing Dependencies Error**
+```
+missing go.sum entry for module providing package github.com/labstack/echo/v4
+```
+
+**Solution:**
+```bash
+# Dependencies are downloaded automatically by the CLI
+# If you encounter this error, run manually:
+cd your-project-directory
+go mod tidy
+```
+
+#### **PowerShell Command Issues** 
+```
+The token '&&' is not a valid statement separator
+```
+
+**Solution:** Use separate commands in PowerShell:
+```powershell
+cd my-app
+go run cmd/server/main.go
+```
+
+#### **Port Already in Use**
+```
+bind: address already in use
+```
+
+**Solution:** Kill the process using port 8080 or change the port in your application.
 
 ## 🤝 Contributing
 

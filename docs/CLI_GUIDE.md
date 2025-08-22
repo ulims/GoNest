@@ -66,8 +66,12 @@ $ gonest new my-awesome-app
 # Navigate to your new project
 $ cd my-awesome-app
 
-# Install dependencies
+# Dependencies are downloaded automatically by the CLI!
+# If you encounter issues, manually run:
 $ go mod tidy
+
+# Run your application
+$ go run cmd/server/main.go
 ```
 
 ### **API Project with Strict Mode**
@@ -78,7 +82,8 @@ $ gonest new my-api --template=api --strict
 # Navigate to your new project
 $ cd my-api
 
-# Install dependencies
+# Dependencies are downloaded automatically!
+# If you encounter issues, manually run:
 $ go mod tidy
 ```
 
@@ -90,7 +95,8 @@ $ gonest new my-webapp --template=fullstack
 # Navigate to your new project
 $ cd my-webapp
 
-# Install dependencies
+# Dependencies are downloaded automatically!
+# If you encounter issues, manually run:
 $ go mod tidy
 ```
 
@@ -102,7 +108,8 @@ $ gonest new my-service --template=microservice
 # Navigate to your new project
 $ cd my-service
 
-# Install dependencies
+# Dependencies are downloaded automatically!
+# If you encounter issues, manually run:
 $ go mod tidy
 ```
 

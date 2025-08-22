@@ -264,7 +264,8 @@ go get go.mongodb.org/mongo-driver/mongo
 ### 3.3 Verify Dependencies
 
 ```bash
-# Download and tidy dependencies
+# Dependencies are downloaded automatically by the CLI
+# But if you're setting up manually or encounter issues:
 go mod tidy
 
 # Check module status
