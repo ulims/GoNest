@@ -60,9 +60,9 @@ coverage.html
 # Documentation build
 docs/build/
 
-# CLI binary
-gonest
-gonest.exe
+# CLI binary (only the executable, not the framework directory)
+/gonest
+/gonest.exe
 
 # Database files
 *.db
