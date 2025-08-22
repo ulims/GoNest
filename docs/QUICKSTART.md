@@ -12,15 +12,13 @@ Our CLI tool provides the fastest and most reliable way to create a new GoNest p
 
 ```bash
 # 1. Install GoNest CLI globally (Recommended)
-$ git clone https://github.com/ulims/GoNest.git
-$ cd GoNest
-$ go install ./cmd/gonest
+$ curl -sSL https://raw.githubusercontent.com/ulims/GoNest/main/install-gonest.sh | bash
 
 # 2. Verify installation
 $ gonest --help
 
 # 3. Create a new project
-$ gonest new my-project-name
+$ gonest new my-app
 
 # 4. Create with specific template and strict mode
 $ gonest new my-api --template=api --strict
@@ -86,15 +84,13 @@ GoNest includes a powerful CLI tool for project scaffolding and component genera
 
 ```bash
 # 1. Install GoNest CLI globally (Recommended)
-$ git clone https://github.com/ulims/GoNest.git
-$ cd GoNest
-$ go install ./cmd/gonest
+$ curl -sSL https://raw.githubusercontent.com/ulims/GoNest/main/install-gonest.sh | bash
 
 # 2. Verify installation
 $ gonest --help
 
 # 3. Create a new project
-$ gonest new my-project-name
+$ gonest new my-app
 
 # 4. Create with specific template and strict mode
 $ gonest new my-api --template=api --strict

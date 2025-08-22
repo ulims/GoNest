@@ -33,7 +33,7 @@ We love pull requests! Here's how to contribute:
 #### Before You Start
 
 1. **Fork the repository**
-2. **Create a feature branch** from `main`
+2. **Create a feature branch** from `master`
 3. **Check existing issues** to see if your work is already in progress
 
 #### Development Guidelines
@@ -144,7 +144,7 @@ func TestUserController_GetUser(t *testing.T) {
    - We'll help ensure your contribution fits well with the project
 
 3. **Merge** once approved:
-   - Your PR will be merged into the main branch
+   - Your PR will be merged into the master branch
    - You'll be added to the contributors list
 
 ## 🏗️ Development Setup

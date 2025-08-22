@@ -11,7 +11,17 @@ This guide is specifically designed for **external developers** who want to use 
 
 ### **Step-by-Step Installation**
 
-#### **1. Install Globally (Recommended)**
+#### **1. One-Line Installation (Recommended)**
+```bash
+# Linux/macOS
+$ curl -sSL https://raw.githubusercontent.com/ulims/GoNest/main/install-gonest.sh | bash
+
+# Windows
+$ curl -o install-gonest.bat https://raw.githubusercontent.com/ulims/GoNest/main/install-gonest.bat
+$ install-gonest.bat
+```
+
+#### **2. Manual Installation**
 ```bash
 # Install GoNest CLI globally
 $ git clone https://github.com/ulims/GoNest.git
@@ -22,7 +32,7 @@ $ go install ./cmd/gonest
 $ gonest --help
 ```
 
-> **Note**: We need to clone the repository first because Go's `go install` command works with local modules. This is the standard approach for Go CLI tools and provides the same developer experience as `npm install -g @nestjs/cli`.
+> **Note**: The one-line installer handles everything automatically. For manual installation, we need to clone the repository first because Go's `go install` command works with local modules. This is the standard approach for Go CLI tools and provides the same developer experience as `npm install -g @nestjs/cli`.
 
 #### **2. Alternative: Build from Source**
 ```bash
