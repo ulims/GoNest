@@ -10,7 +10,6 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-// Simple example to demonstrate GoNest framework
 
 func main() {
 	// Create logger
