@@ -75,14 +75,15 @@ To get started, you can either use our **CLI tool** (recommended), **automated s
 Our CLI tool provides the fastest and most reliable way to create a new GoNest project:
 
 ```bash
-# Install the CLI tool
-$ go install github.com/ulims/GoNest/cmd/gonest@latest
+# Build and use the CLI tool locally
+$ cd GoNest
+$ go build -o gonest.exe cmd/gonest/main.go
 
 # Create a new project
-$ gonest new my-project-name
+$ ./gonest.exe new my-project-name
 
 # Create with specific template and strict mode
-$ gonest new my-api --template=api --strict
+$ ./gonest.exe new my-api --template=api --strict
 ```
 
 The CLI tool automatically:
@@ -222,24 +223,25 @@ app.ModuleRegistry.Register(userModule)
 GoNest includes a powerful CLI tool for project scaffolding and component generation:
 
 ```bash
-# Install the CLI tool
-$ go install github.com/ulims/GoNest/cmd/gonest@latest
+# Build and use the CLI tool locally
+$ cd GoNest
+$ go build -o gonest.exe cmd/gonest/main.go
 
 # Create a new project
-$ gonest new my-project-name
+$ ./gonest.exe new my-project-name
 
 # Create with specific template and strict mode
-$ gonest new my-api --template=api --strict
+$ ./gonest.exe new my-api --template=api --strict
 
 # Generate components in existing projects
-$ gonest generate module user
-$ gonest generate controller user
-$ gonest generate service user
+$ ./gonest.exe generate module user
+$ ./gonest.exe generate controller user
+$ ./gonest.exe generate service user
 
 # Build and run applications
-$ gonest build
-$ gonest run
-$ gonest test
+$ ./gonest.exe build
+$ ./gonest.exe run
+$ ./gonest.exe test
 ```
 
 ### Available Templates
