@@ -3,7 +3,7 @@ package user
 import (
 	"net/http"
 
-	gonest "GoNest"
+	gonest "GoNest/gonest"
 
 	"github.com/labstack/echo/v4"
 )

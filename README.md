@@ -2,125 +2,128 @@
 
 [![Go Version](https://img.shields.io/badge/Go-1.21+-blue.svg)](https://golang.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Go Report Card](https://goreportcard.com/badge/github.com/your-username/gonest)](https://goreportcard.com/report/github.com/your-username/gonest)
-[![GoDoc](https://godoc.org/github.com/your-username/gonest?status.svg)](https://godoc.org/github.com/your-username/gonest)
+[![Go Report Card](https://goreportcard.com/badge/github.com/ulims/GoNest)](https://goreportcard.com/report/github.com/ulims/GoNest)
 
-A powerful, scalable Go framework inspired by NestJS that provides a complete solution for building enterprise-grade applications. GoNest combines the performance of Go with the elegant architecture patterns of NestJS.
+A powerful, enterprise-grade Go web framework inspired by NestJS, designed for building scalable, maintainable applications with modern architectural patterns.
 
-## ✨ Features
+## 🚀 Features
 
-- **🏗️ Modular Architecture**: Organize code into modules with clear boundaries
-- **🔧 Dependency Injection**: Automatic dependency resolution and injection
-- **🛡️ Guards & Interceptors**: Route-level authentication and request/response transformation
-- **📝 Data Validation**: Comprehensive validation using struct tags and DTOs
-- **🔐 Authentication**: JWT-based authentication with refresh tokens
-- **⚡ WebSockets**: Real-time communication support
-- **💾 Caching**: Built-in caching with multiple providers
-- **📡 Events**: Event-driven architecture with async processing
-- **🚦 Rate Limiting**: Protect your APIs with multiple strategies
-- **🗄️ MongoDB Integration**: Simplified database operations
-- **🧪 Testing**: Comprehensive testing utilities
-- **⚙️ Configuration**: Environment-based configuration management
+- **🏗️ Modular Architecture**: NestJS-style module system with dependency injection
+- **🔄 Lifecycle Management**: Comprehensive application and module lifecycle hooks
+- **🛡️ Built-in Security**: Guards, interceptors, and authentication systems
+- **📊 Database Integration**: MongoDB support with Mongoose-like ODM
+- **🌐 WebSocket Support**: Real-time communication capabilities
+- **⚡ High Performance**: Built on Echo framework for optimal performance
+- **🧪 Testing Utilities**: Built-in testing framework and utilities
+- **📝 Validation**: Request/response validation with struct tags
+- **🎯 CLI Tools**: Code generation and project management tools
+
+## 📁 Project Structure
+
+```
+GoNest/
+├── cmd/                    # CLI tools and executables
+│   └── gonest/           # GoNest CLI tool
+├── examples/              # Example applications
+│   ├── advanced/         # Advanced features demonstration
+│   ├── mongodb/          # MongoDB integration example
+│   └── architecture/     # NestJS-style modular architecture example
+├── docs/                 # Documentation
+├── scripts/              # Setup and automation scripts
+├── pkg/                  # Framework packages
+└── README.md            # This file
+```
+
+### Architecture Example Structure
+
+The `examples/architecture/` demonstrates the recommended NestJS-style modular structure:
+
+```
+examples/architecture/
+├── main.go                 # Application entry point
+├── main_module.go          # Root module that imports feature modules
+├── modules/                # Feature modules directory
+│   └── user/              # User feature module
+│       ├── user_module.go    # Module definition and registration
+│       ├── user_service.go   # Business logic layer
+│       └── user_controller.go # HTTP request handling
+└── README.md              # Module documentation
+```
 
 ## 🚀 Quick Start
 
-### Installation
+### Option 1: Automated Setup (Recommended)
 
+Use our setup scripts to create a new GoNest project in seconds:
+
+#### Linux/macOS
 ```bash
-go get github.com/ulims/gonest
+# Make the script executable
+chmod +x scripts/setup-project.sh
+
+# Run the script
+./scripts/setup-project.sh
+
+# Or run with a project name
+./scripts/setup-project.sh my-awesome-app
 ```
 
-### Basic Example
+#### Windows
+```cmd
+# Run the batch script
+scripts\setup-project.bat
+```
+
+The setup scripts automatically:
+- ✅ Create the recommended project structure
+- ✅ Initialize Go module and Git repository
+- ✅ Install all GoNest dependencies
+- ✅ Generate configuration files
+- ✅ Set up Docker and build automation
+- ✅ Create comprehensive documentation
+
+### Option 2: Manual Setup
+
+If you prefer to set up manually:
+
+```bash
+# Create a new directory for your project
+mkdir my-gonest-app
+cd my-gonest-app
+
+# Initialize Go module
+go mod init my-gonest-app
+
+# Add GoNest dependency
+go get github.com/ulims/GoNest
+```
+
+### Basic Application Structure
 
 ```go
 package main
 
 import (
-    "net/http"
-    "github.com/labstack/echo/v4"
+    "context"
     "github.com/sirupsen/logrus"
-    gonest "github.com/ulims/gonest"
+    gonest "github.com/ulims/GoNest"
 )
-
-// User represents a user entity
-type User struct {
-    ID    string `json:"id"`
-    Name  string `json:"name" validate:"required"`
-    Email string `json:"email" validate:"required,email"`
-}
-
-// UserService handles user business logic
-type UserService struct {
-    users map[string]*User
-}
-
-func NewUserService() *UserService {
-    return &UserService{
-        users: make(map[string]*User),
-    }
-}
-
-func (s *UserService) CreateUser(user *User) error {
-    s.users[user.ID] = user
-    return nil
-}
-
-func (s *UserService) GetUser(id string) (*User, error) {
-    user, exists := s.users[id]
-    if !exists {
-        return nil, gonest.NotFoundException("User not found")
-    }
-    return user, nil
-}
-
-// UserController handles HTTP requests
-type UserController struct {
-    userService *UserService `inject:"UserService"`
-}
-
-func (c *UserController) CreateUser(ctx echo.Context) error {
-    var user User
-    if err := ctx.Bind(&user); err != nil {
-        return gonest.BadRequestException("Invalid request")
-    }
-
-    if err := c.userService.CreateUser(&user); err != nil {
-        return err
-    }
-
-    return ctx.JSON(http.StatusCreated, user)
-}
-
-func (c *UserController) GetUser(ctx echo.Context) error {
-    id := ctx.Param("id")
-    user, err := c.userService.GetUser(id)
-    if err != nil {
-        return err
-    }
-    return ctx.JSON(http.StatusOK, user)
-}
 
 func main() {
     // Initialize logger
     logger := logrus.New()
     logger.SetLevel(logrus.InfoLevel)
-    logger.SetFormatter(&logrus.JSONFormatter{})
-
-    // Create module
-    userModule := gonest.NewModule("UserModule").
-        Controller(&UserController{}).
-        Service(NewUserService()).
-        Build()
-
+    
     // Create application
     app := gonest.NewApplication().
-        Config(&gonest.Config{Port: "8080"}).
+        Config(&gonest.Config{
+            Port:        "8080",
+            Host:        "localhost",
+            Environment: "development",
+        }).
         Logger(logger).
         Build()
-
-    // Register module
-    app.ModuleRegistry.Register(userModule)
-
+    
     // Start application
     if err := app.Start(); err != nil {
         logger.Fatal("Failed to start application:", err)
@@ -128,68 +131,169 @@ func main() {
 }
 ```
 
+### Run Your Application
+
+```bash
+go run main.go
+```
+
+Your application will be available at `http://localhost:8080`
+
 ## 📚 Documentation
 
-- **[Complete Documentation](DOCUMENTATION.md)** - Comprehensive guide with examples
-- **[Features Overview](FEATURES.md)** - Detailed feature descriptions
-- **[API Reference](DOCUMENTATION.md#api-reference)** - Complete API documentation
+- **[📖 Full Documentation](docs/DOCUMENTATION.md)** - Comprehensive framework guide
+- **[🏗️ Architecture Guide](ARCHITECTURE.md)** - Detailed architectural patterns
+- **[🚀 Quick Start Guide](docs/QUICKSTART.md)** - Step-by-step project setup
+- **[📋 Features Overview](docs/DOCUMENTATION.md#features)** - All available features
+- **[🧪 Examples](examples/)** - Working examples and tutorials
+- **[🔧 Setup Scripts](scripts/README.md)** - Automated project initialization
+
+## 🎯 Architecture Example
+
+The `examples/architecture/` demonstrates the recommended NestJS-style modular structure:
+
+- **Flat Module Structure**: Each module contains its files directly without nested subdirectories
+- **Dependency Injection**: Services are automatically injected into controllers
+- **Clean Separation**: Clear boundaries between controller, service, and model layers
+- **Extensible Design**: Easy to add new modules following the same pattern
+
+### Running the Architecture Example
+
+```bash
+# Navigate to the architecture example
+cd examples/architecture
+
+# Build the application
+go build .
+
+# Run the application
+./architecture-example.exe
+```
 
 ## 🛠️ CLI Tool
 
-GoNest includes a powerful CLI tool for project scaffolding and code generation:
+GoNest includes a powerful CLI tool for project management:
 
 ```bash
-# Install CLI
-go install github.com/ulims/gonest/cmd/gonest@latest
+# Install CLI tool
+go install github.com/ulims/GoNest/cmd/gonest@latest
 
 # Create new project
-gonest new my-app
-cd my-app
+gonest new my-project
 
-# Run application
-gonest run
-
-# Build application
+# Build project
 gonest build
+
+# Run project
+gonest run
 
 # Run tests
 gonest test
 ```
 
-## 📁 Project Structure
+## 🔧 Key Components
 
-```
-myapp/
-├── cmd/
-│   └── server/
-│       └── main.go
-├── internal/
-│   ├── modules/
-│   │   ├── user/
-│   │   │   ├── controller.go
-│   │   │   ├── service.go
-│   │   │   └── dto.go
-│   │   └── auth/
-│   │       ├── controller.go
-│   │       └── service.go
-│   ├── config/
-│   └── shared/
-├── pkg/
-├── go.mod
-└── go.sum
+### Modules
+```go
+type UserModule struct {
+    *gonest.Module
+}
+
+func NewUserModule(logger *logrus.Logger) *UserModule {
+    userService := NewUserService(logger)
+    userController := NewUserController(userService)
+    
+    module := gonest.NewModule("UserModule").
+        Controller(userController).
+        Service(userService).
+        Build()
+    
+    return &UserModule{Module: module}
+}
 ```
 
-## 🎯 Examples
+### Services
+```go
+type UserService struct {
+    users  map[string]*User
+    logger *logrus.Logger
+}
 
-Check out the [examples](examples/) directory for comprehensive examples:
+func (s *UserService) CreateUser(username, email, password string) (*User, error) {
+    // Business logic implementation
+}
+```
 
-- **[Basic](examples/basic/)** - Simple CRUD operations
-- **[Advanced](examples/advanced/)** - Authentication, validation, and dependency injection
-- **[MongoDB](examples/mongodb/)** - Database integration with MongoDB
+### Controllers
+```go
+type UserController struct {
+    userService *UserService
+}
+
+func (c *UserController) CreateUser(ctx echo.Context) error {
+    // HTTP request handling
+}
+```
+
+## 🧪 Testing
+
+GoNest provides built-in testing utilities:
+
+```go
+func TestUserService(t *testing.T) {
+    testApp := gonest.NewTestApp().
+        Module(userModule).
+        Build()
+    
+    // Test with real HTTP requests
+    response := testApp.Request("POST", "/users").
+        WithJSON(map[string]interface{}{
+            "username": "testuser",
+            "email":    "test@example.com",
+        }).
+        ExpectStatus(201).
+        Get()
+    
+    assert.NotNil(t, response.JSON())
+}
+```
+
+## 📈 Performance
+
+- **High Throughput**: Built on Echo framework for optimal performance
+- **Low Memory Usage**: Efficient memory management and garbage collection
+- **Fast Startup**: Minimal initialization overhead
+- **Scalable**: Support for horizontal and vertical scaling
+
+## 🔒 Security
+
+- **Input Validation**: Comprehensive request validation
+- **Authentication**: JWT-based authentication system
+- **Authorization**: Role-based access control
+- **Rate Limiting**: Built-in rate limiting strategies
+- **CORS Support**: Configurable cross-origin resource sharing
+
+## 🌟 Why GoNest?
+
+- **🚀 NestJS Familiarity**: If you know NestJS, you'll feel at home
+- **⚡ Go Performance**: Leverage Go's speed and efficiency
+- **🏗️ Enterprise Ready**: Built for production applications
+- **🔧 Developer Experience**: Excellent tooling and documentation
+- **📚 Rich Ecosystem**: Comprehensive feature set out of the box
+- **🧪 Testing First**: Built-in testing utilities and patterns
+- **⚡ Quick Setup**: Automated project initialization scripts
 
 ## 🤝 Contributing
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+### Areas for Contribution
+
+- 🐛 Bug fixes and improvements
+- ✨ New features and enhancements
+- 📚 Documentation improvements
+- 🧪 Test coverage expansion
+- 🔧 Performance optimizations
 
 ## 📄 License
 
@@ -197,16 +301,17 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- Inspired by [NestJS](https://nestjs.com/) architecture patterns
-- Built on top of [Echo](https://echo.labstack.com/) web framework
-- Uses [Logrus](https://github.com/sirupsen/logrus) for structured logging
+- **NestJS Team**: For the excellent architectural inspiration
+- **Echo Framework**: For the high-performance HTTP foundation
+- **Go Community**: For the amazing ecosystem and tools
 
 ## 📞 Support
 
-- 📖 [Documentation](DOCUMENTATION.md)
-- 🐛 [Issues](https://github.com/ulims/gonest/issues)
-- 💬 [Discussions](https://github.com/ulims/gonest/discussions)
+- **📖 Documentation**: [Full Documentation](docs/DOCUMENTATION.md)
+- **🐛 Issues**: [GitHub Issues](https://github.com/ulims/GoNest/issues)
+- **💬 Discussions**: [GitHub Discussions](https://github.com/ulims/GoNest/discussions)
+- **📧 Email**: your-email@example.com
 
 ---
 
-**GoNest** - Building scalable Go applications with elegance and performance.
+**Build amazing applications with GoNest - The Go framework that brings NestJS elegance to Go! 🚀**

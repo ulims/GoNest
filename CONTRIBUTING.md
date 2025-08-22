@@ -158,7 +158,7 @@ func TestUserController_GetUser(t *testing.T) {
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/gonest.git
+   git clone https://github.com/ulims/GoNest.git
    cd gonest
    ```
 
@@ -255,9 +255,9 @@ We're always looking for help in these areas:
 
 ## 📞 Getting Help
 
-- **Documentation**: Check the [main documentation](DOCUMENTATION.md)
-- **Issues**: Search existing [issues](https://github.com/your-username/gonest/issues)
-- **Discussions**: Join [discussions](https://github.com/your-username/gonest/discussions)
+- **Documentation**: Check the [main documentation](docs/DOCUMENTATION.md)
+- **Issues**: Search existing [issues](https://github.com/ulims/GoNest/issues)
+- **Discussions**: Join [discussions](https://github.com/ulims/GoNest/discussions)
 - **Email**: Contact maintainers directly
 
 ## 🙏 Recognition

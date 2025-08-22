@@ -126,10 +126,9 @@ type User struct {
 The GoNest architecture follows a **flat module structure** for simplicity and clarity:
 
 ```
-examples/architecture/
+my-gonest-app/
 ├── main.go                 # Application entry point
-├── main_module.go          # Root module that imports all feature modules
-├── go.mod                  # Go module definition
+├── main_module.go          # Root module that imports feature modules
 ├── modules/                # Feature modules directory
 │   └── user/              # User feature module
 │       ├── user_module.go    # Module definition and registration
@@ -447,6 +446,17 @@ func (c *HealthController) Health(ctx echo.Context) error {
 - **Template Engine**: Code generation
 - **Migration Tools**: Database schema management
 - **Monitoring Dashboard**: Built-in observability
+
+## 📚 Additional Resources
+
+### Examples
+- **[Architecture Example](examples/architecture/)** - NestJS-style modular structure
+- **[Advanced Example](examples/advanced/)** - Authentication, validation, and dependency injection
+- **[MongoDB Example](examples/mongodb/)** - Database integration
+
+### Guides
+- **[Quick Start Guide](docs/QUICKSTART.md)** - Step-by-step project setup
+- **[Features Overview](docs/DOCUMENTATION.md#features)** - All available features
 
 ## 📚 Conclusion
 

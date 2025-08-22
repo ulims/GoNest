@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 
-	gonest "GoNest"
+	gonest "GoNest/gonest"
 
 	"github.com/sirupsen/logrus"
 )

@@ -1,7 +1,7 @@
 package main
 
 import (
-	gonest "GoNest"
+	gonest "GoNest/gonest"
 	"architecture-example/modules/user"
 
 	"github.com/sirupsen/logrus"
