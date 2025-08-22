@@ -274,7 +274,6 @@ func getProjectStructure(template string) []string {
 			"internal/shared/interceptors",
 			"internal/shared/exceptions",
 			"pkg/utils",
-			"examples",
 			"docs",
 		}
 	}
@@ -308,12 +307,12 @@ require (
 
 	writeFile(filepath.Join(projectName, "go.mod"), goModContent)
 
-	// Generate main.go with template-specific content
-	mainContent := generateMainGo(template, strict)
+	// Generate main.go with working modular architecture
+	mainContent := generateMainGoWithModules(projectName)
 	writeFile(filepath.Join(projectName, "cmd/server/main.go"), mainContent)
 
 	// Generate configuration files
-	generateConfigFiles(projectName, template, strict)
+	generateConfigFiles(projectName)
 
 	// Generate README
 	readmeContent := generateREADME(projectName, template)
@@ -329,15 +328,18 @@ require (
 
 	// Generate additional template-specific files
 	generateTemplateSpecificFiles(projectName, template, strict)
+
+	// Generate working modular architecture to demonstrate GoNest's power
+	generateModularArchitecture(projectName)
 }
 
-func generateMainGo(template string, strict bool) string {
-	baseContent := `package main
+func generateMainGoWithModules(projectName string) string {
+	mainContent := fmt.Sprintf(`package main
 
 import (
-	"context"
+	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
-	gonest "github.com/ulims/GoNest"
+	"%s/internal/modules/user"
 )
 
 func main() {
@@ -346,34 +348,46 @@ func main() {
 	logger.SetLevel(logrus.InfoLevel)
 	logger.SetFormatter(&logrus.JSONFormatter{})
 
-	// Create application
-	app := gonest.NewApplication().
-		Config(&gonest.Config{
-			Port:        "8080",
-			Host:        "localhost",
-			Environment: "development",
-		}).
-		Logger(logger).
-		Build()
+	// Create Echo instance
+	e := echo.New()
 
-	// Register your modules here
-	// app.ModuleRegistry.Register(yourModule.GetModule())
+	// Initialize and register the User module
+	// This demonstrates GoNest's modular architecture!
+	userModule := user.NewUserModule(logger)
+	
+	// Register module routes
+	userModule.RegisterRoutes(e)
 
-	// Start the application
-	if err := app.Start(); err != nil {
+	// Add a health check route
+	e.GET("/health", func(c echo.Context) error {
+		return c.JSON(200, map[string]string{
+			"status": "healthy",
+			"message": "🚀 GoNest Application with Modular Architecture is running!",
+			"modules": "User module is active and ready",
+		})
+	})
+
+	// Add root route
+	e.GET("/", func(c echo.Context) error {
+		return c.String(200, "🚀 GoNest Application with Modular Architecture!")
+	})
+
+	// Start server
+	addr := "localhost:8080"
+	logger.Infof("🚀 Starting GoNest application on %%s", addr)
+	logger.Info("📁 User module is loaded and ready!")
+	logger.Info("🎯 Try: POST /users, GET /users, GET /users/:id")
+	
+	if err := e.Start(addr); err != nil {
 		logger.Fatal("Failed to start application:", err)
 	}
 }
-`
+`, projectName)
 
-	if strict {
-		baseContent = strings.Replace(baseContent, "Environment: \"development\"", "Environment: \"development\",\n\t\t\tLogLevel:    \"info\",", 1)
-	}
-
-	return baseContent
+	return mainContent
 }
 
-func generateConfigFiles(projectName, template string, strict bool) {
+func generateConfigFiles(projectName string) {
 	// Generate config.go
 	configContent := `package config
 
@@ -753,6 +767,249 @@ message HealthResponse {
 	writeFile(filepath.Join(projectName, "proto/service.proto"), protoContent)
 }
 
+// generateModularArchitecture creates a working sample module to demonstrate GoNest's power
+func generateModularArchitecture(projectName string) {
+	// Create a sample "user" module to demonstrate modularity
+	userModulePath := filepath.Join(projectName, "internal/modules/user")
+	os.MkdirAll(userModulePath, 0755)
+
+	// Generate user module file
+	userModuleContent := `package user
+
+import (
+	"github.com/sirupsen/logrus"
+	gonest "github.com/ulims/GoNest/gonest"
+)
+
+// UserModule demonstrates GoNest's modular architecture
+type UserModule struct {
+	*gonest.Module
+}
+
+// NewUserModule creates a new user module with all its components
+func NewUserModule(logger *logrus.Logger) *UserModule {
+	// Create services
+	userService := NewUserService(logger)
+	
+	// Create controllers
+	userController := NewUserController(userService)
+	
+	// Create and return module - this is where the magic happens!
+	module := gonest.NewModule("UserModule").
+		Controller(userController).
+		Service(userService).
+		Build()
+	
+	return &UserModule{
+		Module: module,
+	}
+}
+`
+	writeFile(filepath.Join(userModulePath, "user_module.go"), userModuleContent)
+
+	// Generate user service
+	userServiceContent := `package user
+
+import (
+	"errors"
+	"sync"
+	"time"
+	"github.com/sirupsen/logrus"
+)
+
+// User represents a user entity
+type User struct {
+	ID        string    ` + "`" + `json:"id"` + "`" + `
+	Username  string    ` + "`" + `json:"username"` + "`" + `
+	Email     string    ` + "`" + `json:"email"` + "`" + `
+	CreatedAt time.Time ` + "`" + `json:"created_at"` + "`" + `
+}
+
+// UserService handles user business logic
+type UserService struct {
+	users  map[string]*User
+	logger *logrus.Logger
+	mutex  sync.RWMutex
+}
+
+// NewUserService creates a new user service
+func NewUserService(logger *logrus.Logger) *UserService {
+	return &UserService{
+		users:  make(map[string]*User),
+		logger: logger,
+	}
+}
+
+// CreateUser creates a new user
+func (s *UserService) CreateUser(username, email string) (*User, error) {
+	s.mutex.Lock()
+	defer s.mutex.Unlock()
+	
+	// Check if username already exists
+	if s.usernameExists(username) {
+		return nil, errors.New("username already exists")
+	}
+	
+	// Create new user
+	user := &User{
+		ID:        time.Now().Format("20060102150405"),
+		Username:  username,
+		Email:     email,
+		CreatedAt: time.Now(),
+	}
+	
+	// Store user
+	s.users[user.ID] = user
+	
+	s.logger.Infof("Created user: %%s (%%s)", user.Username, user.ID)
+	return user, nil
+}
+
+// GetUser retrieves a user by ID
+func (s *UserService) GetUser(id string) (*User, error) {
+	s.mutex.RLock()
+	defer s.mutex.RUnlock()
+	
+	user, exists := s.users[id]
+	if !exists {
+		return nil, errors.New("user not found")
+	}
+	
+	return user, nil
+}
+
+// ListUsers retrieves all users
+func (s *UserService) ListUsers() ([]*User, error) {
+	s.mutex.RLock()
+	defer s.mutex.RUnlock()
+	
+	users := make([]*User, 0, len(s.users))
+	for _, user := range s.users {
+		users = append(users, user)
+	}
+	
+	return users, nil
+}
+
+// Helper methods
+func (s *UserService) usernameExists(username string) bool {
+	for _, user := range s.users {
+		if user.Username == username {
+			return true
+		}
+	}
+	return false
+}
+`
+	writeFile(filepath.Join(userModulePath, "user_service.go"), userServiceContent)
+
+	// Generate user controller
+	userControllerContent := `package user
+
+import (
+	"net/http"
+	"github.com/labstack/echo/v4"
+)
+
+// UserController handles HTTP requests for user operations
+type UserController struct {
+	userService *UserService
+}
+
+// NewUserController creates a new user controller
+func NewUserController(userService *UserService) *UserController {
+	return &UserController{
+		userService: userService,
+	}
+}
+
+// CreateUser handles user creation
+func (c *UserController) CreateUser(ctx echo.Context) error {
+	var req struct {
+		Username string ` + "`" + `json:"username" validate:"required,min=3"` + "`" + `
+		Email    string ` + "`" + `json:"email" validate:"required,email"` + "`" + `
+	}
+	
+	if err := ctx.Bind(&req); err != nil {
+		return ctx.JSON(http.StatusBadRequest, map[string]string{
+			"error": "Invalid request body",
+		})
+	}
+	
+	// Create user
+	user, err := c.userService.CreateUser(req.Username, req.Email)
+	if err != nil {
+		return ctx.JSON(http.StatusBadRequest, map[string]string{
+			"error": err.Error(),
+		})
+	}
+	
+	return ctx.JSON(http.StatusCreated, user)
+}
+
+// GetUser handles user retrieval by ID
+func (c *UserController) GetUser(ctx echo.Context) error {
+	id := ctx.Param("id")
+	if id == "" {
+		return ctx.JSON(http.StatusBadRequest, map[string]string{
+			"error": "User ID is required",
+		})
+	}
+	
+	user, err := c.userService.GetUser(id)
+	if err != nil {
+		return ctx.JSON(http.StatusNotFound, map[string]string{
+			"error": err.Error(),
+		})
+	}
+	
+	return ctx.JSON(http.StatusOK, user)
+}
+
+// ListUsers handles user listing
+func (c *UserController) ListUsers(ctx echo.Context) error {
+	users, err := c.userService.ListUsers()
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, map[string]string{
+			"error": "Failed to retrieve users",
+		})
+	}
+	
+	return ctx.JSON(http.StatusOK, users)
+}
+`
+	writeFile(filepath.Join(userModulePath, "user_controller.go"), userControllerContent)
+
+	// Generate routes file to show how modules are wired together
+	routesContent := `package user
+
+import (
+	"github.com/labstack/echo/v4"
+)
+
+// RegisterRoutes registers all user module routes
+func (m *UserModule) RegisterRoutes(e *echo.Echo) {
+	// Create route group for user module
+	userGroup := e.Group("/users")
+	
+	// Register routes with the controller
+	userGroup.POST("", m.Controller.(*UserController).CreateUser)
+	userGroup.GET("/:id", m.Controller.(*UserController).GetUser)
+	userGroup.GET("", m.Controller.(*UserController).ListUsers)
+}
+`
+	writeFile(filepath.Join(userModulePath, "routes.go"), routesContent)
+
+	fmt.Printf("✅ Generated working modular architecture with User module!\n")
+	fmt.Printf("   This demonstrates GoNest's NestJS-style modularity.\n")
+	fmt.Printf("   Check internal/modules/user/ to see how modules work.\n")
+	fmt.Printf("\n🎯 **Why This Matters:**\n")
+	fmt.Printf("   - No more 'examples' folder cluttering your project\n")
+	fmt.Printf("   - Working modular architecture from day one\n")
+	fmt.Printf("   - See NestJS patterns in action immediately\n")
+	fmt.Printf("   - Ready to build and run with real functionality!\n")
+}
+
 // Component generation functions
 func generateModule(name, moduleDir string) {
 	modulePath := filepath.Join(moduleDir, strings.ToLower(name))
@@ -787,7 +1044,7 @@ func New%sModule(logger *logrus.Logger) *%sModule {
 		Module: module,
 	}
 }
-`, strings.ToLower(name), name, name, name, strings.ToLower(name), name, strings.ToLower(name), name, strings.ToLower(name), name, name, name, name, name)
+`, strings.ToLower(name), name, name, name, strings.ToLower(name), name, strings.ToLower(name), name, strings.ToLower(name), name, name, name, name)
 
 	writeFile(filepath.Join(modulePath, fmt.Sprintf("%s_module.go", strings.ToLower(name))), moduleContent)
 
