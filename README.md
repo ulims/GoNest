@@ -75,14 +75,17 @@ To get started, you can either use our **CLI tool** (recommended), **automated s
 Our CLI tool provides the fastest and most reliable way to create a new GoNest project:
 
 ```bash
-# Build and use the CLI tool locally
+# 1. Clone the GoNest repository
+$ git clone https://github.com/ulims/GoNest.git
 $ cd GoNest
+
+# 2. Build the CLI tool
 $ go build -o gonest.exe cmd/gonest/main.go
 
-# Create a new project
+# 3. Create a new project
 $ ./gonest.exe new my-project-name
 
-# Create with specific template and strict mode
+# 4. Create with specific template and strict mode
 $ ./gonest.exe new my-api --template=api --strict
 ```
 
@@ -191,6 +194,7 @@ Your application will be available at `http://localhost:8080`
 - **[📖 Full Documentation](docs/DOCUMENTATION.md)** - Comprehensive framework guide
 - **[🏗️ Architecture Guide](ARCHITECTURE.md)** - Detailed architectural patterns
 - **[🚀 Quick Start Guide](docs/QUICKSTART.md)** - Step-by-step project setup
+- **[🛠️ CLI Tool Guide](docs/CLI_GUIDE.md)** - Complete guide for using the CLI tool
 - **[📋 Features Overview](docs/DOCUMENTATION.md#features)** - All available features
 - **[🧪 Examples](examples/)** - Working examples and tutorials
 - **[🔧 Setup Scripts](scripts/README.md)** - Automated project initialization
@@ -220,29 +224,103 @@ app.ModuleRegistry.Register(userModule)
 
 ## 🛠️ CLI Tool
 
-GoNest includes a powerful CLI tool for project scaffolding and component generation:
+GoNest includes a powerful CLI tool for project scaffolding and component generation. This is the **recommended way** for developers to get started with GoNest.
+
+### 📥 **Installation & Setup**
 
 ```bash
-# Build and use the CLI tool locally
+# 1. Clone the GoNest repository
+$ git clone https://github.com/ulims/GoNest.git
 $ cd GoNest
+
+# 2. Build the CLI tool (Windows)
 $ go build -o gonest.exe cmd/gonest/main.go
 
-# Create a new project
-$ ./gonest.exe new my-project-name
+# 2. Build the CLI tool (Linux/macOS)
+$ go build -o gonest cmd/gonest/main.go
+```
 
-# Create with specific template and strict mode
+### 🚀 **Creating New Projects**
+
+```bash
+# Basic project
+$ ./gonest.exe new my-app
+
+# API project with strict mode
 $ ./gonest.exe new my-api --template=api --strict
 
-# Generate components in existing projects
+# Full-stack project
+$ ./gonest.exe new my-webapp --template=fullstack
+
+# Microservice project
+$ ./gonest.exe new my-service --template=microservice
+```
+
+### 🔧 **Generating Components**
+
+```bash
+# Navigate to your GoNest project
+$ cd my-app
+
+# Generate a new module
 $ ./gonest.exe generate module user
+
+# Generate a controller
 $ ./gonest.exe generate controller user
+
+# Generate a service
 $ ./gonest.exe generate service user
 
-# Build and run applications
+# Generate DTOs and entities
+$ ./gonest.exe generate dto user
+$ ./gonest.exe generate entity user
+```
+
+### 🏗️ **Project Management**
+
+```bash
+# Build the application
 $ ./gonest.exe build
+
+# Run the application
 $ ./gonest.exe run
+
+# Run tests
 $ ./gonest.exe test
 ```
+
+### 📋 **Available Templates**
+
+| Template | Description | Use Case |
+|----------|-------------|----------|
+| `basic` | Standard GoNest structure | General applications |
+| `api` | API-focused with Swagger | REST APIs, microservices |
+| `fullstack` | Web app with templates | Full-stack applications |
+| `microservice` | gRPC + protobuf | Microservice architecture |
+
+### 🎯 **Available Commands**
+
+| Command | Description | Example |
+|---------|-------------|---------|
+| `new` | Create new project | `./gonest.exe new my-app` |
+| `generate` | Generate components | `./gonest.exe generate module user` |
+| `build` | Build application | `./gonest.exe build` |
+| `run` | Run application | `./gonest.exe run` |
+| `test` | Run tests | `./gonest.exe test` |
+
+### 🔒 **Strict Mode**
+
+Enable strict mode for enhanced security and validation:
+```bash
+$ ./gonest.exe new my-app --strict
+```
+
+**Strict mode includes:**
+- Enhanced input validation
+- Security headers
+- Rate limiting
+- CORS configuration
+- Request logging
 
 ### Available Templates
 - **`basic`** (default): Standard GoNest project structure
