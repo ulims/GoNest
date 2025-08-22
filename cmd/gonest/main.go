@@ -700,17 +700,17 @@ func generateTemplateSpecificFiles(projectName, template string, strict bool) {
 	switch template {
 	case "api":
 		// Generate API-specific files
-		generateAPIFiles(projectName, strict)
+		generateAPIFiles(projectName)
 	case "fullstack":
 		// Generate fullstack-specific files
-		generateFullstackFiles(projectName, strict)
+		generateFullstackFiles(projectName)
 	case "microservice":
 		// Generate microservice-specific files
 		generateMicroserviceFiles(projectName, strict)
 	}
 }
 
-func generateAPIFiles(projectName string, strict bool) {
+func generateAPIFiles(projectName string) {
 	// Generate API documentation template
 	swaggerContent := fmt.Sprintf(`openapi: 3.0.0
 info:
@@ -728,7 +728,7 @@ paths:
 	writeFile(filepath.Join(projectName, "docs/swagger.yaml"), swaggerContent)
 }
 
-func generateFullstackFiles(projectName string, strict bool) {
+func generateFullstackFiles(projectName string) {
 	// Generate web templates
 	htmlContent := fmt.Sprintf(`<!DOCTYPE html>
 <html>
@@ -1001,10 +1001,12 @@ func (m *UserModule) RegisterRoutes(e *echo.Echo) {
 	fmt.Printf("   This demonstrates GoNest's NestJS-style modularity.\n")
 	fmt.Printf("   Check internal/modules/user/ to see how modules work.\n")
 	fmt.Printf("\n🎯 **Why This Matters:**\n")
-	fmt.Printf("   - No more 'examples' folder cluttering your project\n")
+	fmt.Printf("   - You can create modules and controllers and services and DTOs and entities and more\n")
 	fmt.Printf("   - Working modular architecture from day one\n")
 	fmt.Printf("   - See NestJS patterns in action immediately\n")
 	fmt.Printf("   - Ready to build and run with real functionality!\n")
+
+	fmt.Printf("✅ This project was designed by Agbama Ulimhuka Akem, feel free to contact me on ulimhukaakem@gmail.com!\n")
 }
 
 // Component generation functions
@@ -1039,7 +1041,7 @@ func New%sModule(logger *logrus.Logger) *%sModule {
 		logger:       logger,
 	}
 }
-`, strings.ToLower(name), name, strings.ToLower(name), name, strings.ToLower(name), name, name, name, strings.ToLower(name), name, strings.ToLower(name), name, strings.ToLower(name), name, strings.ToLower(name), name, strings.ToLower(name), name, strings.ToLower(name), name)
+`, strings.ToLower(name), name, strings.ToLower(name), name, strings.ToLower(name), name, name, name, strings.ToLower(name), name, strings.ToLower(name), name, strings.ToLower(name), name, strings.ToLower(name), name, strings.ToLower(name), name)
 
 	writeFile(filepath.Join(modulePath, fmt.Sprintf("%s_module.go", strings.ToLower(name))), moduleContent)
 
