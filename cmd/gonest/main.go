@@ -288,7 +288,6 @@ go 1.21
 require (
 	github.com/labstack/echo/v4 v4.11.4
 	github.com/sirupsen/logrus v1.9.3
-	gonest "github.com/ulims/GoNest"
 )
 
 require (
@@ -778,12 +777,13 @@ func generateModularArchitecture(projectName string) {
 
 import (
 	"github.com/sirupsen/logrus"
-	gonest "github.com/ulims/GoNest/gonest"
 )
 
-// UserModule demonstrates GoNest's modular architecture
+// UserModule demonstrates modular architecture
 type UserModule struct {
-	*gonest.Module
+	userService    *UserService
+	userController *UserController
+	logger         *logrus.Logger
 }
 
 // NewUserModule creates a new user module with all its components
@@ -795,13 +795,10 @@ func NewUserModule(logger *logrus.Logger) *UserModule {
 	userController := NewUserController(userService)
 	
 	// Create and return module - this is where the magic happens!
-	module := gonest.NewModule("UserModule").
-		Controller(userController).
-		Service(userService).
-		Build()
-	
 	return &UserModule{
-		Module: module,
+		userService:    userService,
+		userController: userController,
+		logger:         logger,
 	}
 }
 `
@@ -993,9 +990,9 @@ func (m *UserModule) RegisterRoutes(e *echo.Echo) {
 	userGroup := e.Group("/users")
 	
 	// Register routes with the controller
-	userGroup.POST("", m.Controller.(*UserController).CreateUser)
-	userGroup.GET("/:id", m.Controller.(*UserController).GetUser)
-	userGroup.GET("", m.Controller.(*UserController).ListUsers)
+	userGroup.POST("", m.userController.CreateUser)
+	userGroup.GET("/:id", m.userController.GetUser)
+	userGroup.GET("", m.userController.ListUsers)
 }
 `
 	writeFile(filepath.Join(userModulePath, "routes.go"), routesContent)
@@ -1020,11 +1017,12 @@ func generateModule(name, moduleDir string) {
 
 import (
 	"github.com/sirupsen/logrus"
-	gonest "github.com/ulims/GoNest"
 )
 
 type %sModule struct {
-	*gonest.Module
+	%sService    *%sService
+	%sController *%sController
+	logger       *logrus.Logger
 }
 
 func New%sModule(logger *logrus.Logger) *%sModule {
@@ -1035,16 +1033,13 @@ func New%sModule(logger *logrus.Logger) *%sModule {
 	%sController := New%sController(%sService)
 	
 	// Create and return module
-	module := gonest.NewModule("%sModule").
-		Controller(%sController).
-		Service(%sService).
-		Build()
-	
 	return &%sModule{
-		Module: module,
+		%sService:    %sService,
+		%sController: %sController,
+		logger:       logger,
 	}
 }
-`, strings.ToLower(name), name, name, name, strings.ToLower(name), name, strings.ToLower(name), name, strings.ToLower(name), name, name, name, name)
+`, strings.ToLower(name), name, strings.ToLower(name), name, strings.ToLower(name), name, name, name, strings.ToLower(name), name, strings.ToLower(name), name, strings.ToLower(name), name, strings.ToLower(name), name, strings.ToLower(name), name, strings.ToLower(name), name)
 
 	writeFile(filepath.Join(modulePath, fmt.Sprintf("%s_module.go", strings.ToLower(name))), moduleContent)
 
