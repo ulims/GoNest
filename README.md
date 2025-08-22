@@ -229,31 +229,38 @@ GoNest includes a powerful CLI tool for project scaffolding and component genera
 ### 📥 **Installation & Setup**
 
 ```bash
-# 1. Clone the GoNest repository
+# Install GoNest CLI globally (Recommended)
 $ git clone https://github.com/ulims/GoNest.git
 $ cd GoNest
+$ go install ./cmd/gonest
 
-# 2. Build the CLI tool (Windows)
-$ go build -o gonest.exe cmd/gonest/main.go
+# Verify installation
+$ gonest --help
+```
 
-# 2. Build the CLI tool (Linux/macOS)
-$ go build -o gonest cmd/gonest/main.go
+**Alternative: Build from source**
+```bash
+# Clone and build locally
+$ git clone https://github.com/ulims/GoNest.git
+$ cd GoNest
+$ go build -o gonest.exe cmd/gonest/main.go  # Windows
+$ go build -o gonest cmd/gonest/main.go       # Linux/macOS
 ```
 
 ### 🚀 **Creating New Projects**
 
 ```bash
 # Basic project
-$ ./gonest.exe new my-app
+$ gonest new my-app
 
 # API project with strict mode
-$ ./gonest.exe new my-api --template=api --strict
+$ gonest new my-api --template=api --strict
 
 # Full-stack project
-$ ./gonest.exe new my-webapp --template=fullstack
+$ gonest new my-webapp --template=fullstack
 
 # Microservice project
-$ ./gonest.exe new my-service --template=microservice
+$ gonest new my-service --template=microservice
 ```
 
 ### 🔧 **Generating Components**
@@ -263,30 +270,30 @@ $ ./gonest.exe new my-service --template=microservice
 $ cd my-app
 
 # Generate a new module
-$ ./gonest.exe generate module user
+$ gonest generate module user
 
 # Generate a controller
-$ ./gonest.exe generate controller user
+$ gonest generate controller user
 
 # Generate a service
-$ ./gonest.exe generate service user
+$ gonest generate service user
 
 # Generate DTOs and entities
-$ ./gonest.exe generate dto user
-$ ./gonest.exe generate entity user
+$ gonest generate dto user
+$ gonest generate entity user
 ```
 
 ### 🏗️ **Project Management**
 
 ```bash
 # Build the application
-$ ./gonest.exe build
+$ gonest build
 
 # Run the application
-$ ./gonest.exe run
+$ gonest run
 
 # Run tests
-$ ./gonest.exe test
+$ gonest test
 ```
 
 ### 📋 **Available Templates**
@@ -302,17 +309,17 @@ $ ./gonest.exe test
 
 | Command | Description | Example |
 |---------|-------------|---------|
-| `new` | Create new project | `./gonest.exe new my-app` |
-| `generate` | Generate components | `./gonest.exe generate module user` |
-| `build` | Build application | `./gonest.exe build` |
-| `run` | Run application | `./gonest.exe run` |
-| `test` | Run tests | `./gonest.exe test` |
+| `new` | Create new project | `gonest new my-app` |
+| `generate` | Generate components | `gonest generate module user` |
+| `build` | Build application | `gonest build` |
+| `run` | Run application | `gonest run` |
+| `test` | Run tests | `gonest test` |
 
 ### 🔒 **Strict Mode**
 
 Enable strict mode for enhanced security and validation:
 ```bash
-$ ./gonest.exe new my-app --strict
+$ gonest new my-app --strict
 ```
 
 **Strict mode includes:**

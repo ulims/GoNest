@@ -11,34 +11,32 @@ This guide is specifically designed for **external developers** who want to use 
 
 ### **Step-by-Step Installation**
 
-#### **1. Clone the Repository**
+#### **1. Install Globally (Recommended)**
+```bash
+# Install GoNest CLI globally
+$ git clone https://github.com/ulims/GoNest.git
+$ cd GoNest
+$ go install ./cmd/gonest
+
+# Verify installation
+$ gonest --help
+```
+
+> **Note**: We need to clone the repository first because Go's `go install` command works with local modules. This is the standard approach for Go CLI tools and provides the same developer experience as `npm install -g @nestjs/cli`.
+
+#### **2. Alternative: Build from Source**
 ```bash
 # Clone the GoNest repository
 $ git clone https://github.com/ulims/GoNest.git
-
-# Navigate to the project directory
 $ cd GoNest
-```
 
-#### **2. Build the CLI Tool**
+# Build the CLI tool
+$ go build -o gonest.exe cmd/gonest/main.go  # Windows
+$ go build -o gonest cmd/gonest/main.go       # Linux/macOS
 
-**For Windows:**
-```bash
-$ go build -o gonest.exe cmd/gonest/main.go
-```
-
-**For Linux/macOS:**
-```bash
-$ go build -o gonest cmd/gonest/main.go
-```
-
-#### **3. Verify Installation**
-```bash
-# Windows
-$ ./gonest.exe --help
-
-# Linux/macOS
-$ ./gonest --help
+# Verify installation
+$ ./gonest.exe --help  # Windows
+$ ./gonest --help       # Linux/macOS
 ```
 
 ## 🎯 **Creating Your First Project**
@@ -46,7 +44,7 @@ $ ./gonest --help
 ### **Basic Project**
 ```bash
 # Create a basic GoNest project
-$ ./gonest.exe new my-awesome-app
+$ gonest new my-awesome-app
 
 # Navigate to your new project
 $ cd my-awesome-app
@@ -58,7 +56,7 @@ $ go mod tidy
 ### **API Project with Strict Mode**
 ```bash
 # Create an API-focused project with enhanced security
-$ ./gonest.exe new my-api --template=api --strict
+$ gonest new my-api --template=api --strict
 
 # Navigate to your new project
 $ cd my-api
@@ -70,7 +68,7 @@ $ go mod tidy
 ### **Full-Stack Project**
 ```bash
 # Create a full-stack project with web templates
-$ ./gonest.exe new my-webapp --template=fullstack
+$ gonest new my-webapp --template=fullstack
 
 # Navigate to your new project
 $ cd my-webapp
@@ -82,7 +80,7 @@ $ go mod tidy
 ### **Microservice Project**
 ```bash
 # Create a microservice project with gRPC support
-$ ./gonest.exe new my-service --template=microservice
+$ gonest new my-service --template=microservice
 
 # Navigate to your new project
 $ cd my-service
@@ -101,28 +99,28 @@ Once you have a project created, you can generate additional components:
 $ cd my-awesome-app
 
 # Generate a user module
-$ ./gonest.exe generate module user
+$ gonest generate module user
 ```
 
 ### **Generate a Controller**
 ```bash
 # Generate a user controller
-$ ./gonest.exe generate controller user
+$ gonest generate controller user
 ```
 
 ### **Generate a Service**
 ```bash
 # Generate a user service
-$ ./gonest.exe generate service user
+$ gonest generate service user
 ```
 
 ### **Generate DTOs and Entities**
 ```bash
 # Generate user DTOs
-$ ./gonest.exe generate dto user
+$ gonest generate dto user
 
 # Generate user entities
-$ ./gonest.exe generate entity user
+$ gonest generate entity user
 ```
 
 ## 🏗️ **Project Management Commands**
@@ -130,19 +128,19 @@ $ ./gonest.exe generate entity user
 ### **Build Your Application**
 ```bash
 # Build the application
-$ ./gonest.exe build
+$ gonest build
 ```
 
 ### **Run Your Application**
 ```bash
 # Run the application in development mode
-$ ./gonest.exe run
+$ gonest run
 ```
 
 ### **Test Your Application**
 ```bash
 # Run all tests
-$ ./gonest.exe test
+$ gonest test
 ```
 
 ## 📋 **Available Templates**
@@ -159,36 +157,36 @@ $ ./gonest.exe test
 ### **New Project Commands**
 ```bash
 # Basic syntax
-./gonest.exe new <project-name> [flags]
+gonest new <project-name> [flags]
 
 # Examples
-./gonest.exe new my-app                    # Basic project
-./gonest.exe new my-api --template=api     # API project
-./gonest.exe new my-web --template=fullstack # Full-stack project
-./gonest.exe new my-service --template=microservice # Microservice
-./gonest.exe new my-app --strict          # With strict mode
-./gonest.exe new my-app --force           # Overwrite existing
+gonest new my-app                    # Basic project
+gonest new my-api --template=api     # API project
+gonest new my-web --template=fullstack # Full-stack project
+gonest new my-service --template=microservice # Microservice
+gonest new my-app --strict          # With strict mode
+gonest new my-app --force           # Overwrite existing
 ```
 
 ### **Generate Commands**
 ```bash
 # Basic syntax
-./gonest.exe generate <type> <name> [flags]
+gonest generate <type> <name> [flags]
 
 # Examples
-./gonest.exe generate module user          # Generate user module
-./gonest.exe generate controller user      # Generate user controller
-./gonest.exe generate service user         # Generate user service
-./gonest.exe generate dto user             # Generate user DTOs
-./gonest.exe generate entity user          # Generate user entities
+gonest generate module user          # Generate user module
+gonest generate controller user      # Generate user controller
+gonest generate service user         # Generate user service
+gonest generate dto user             # Generate user DTOs
+gonest generate entity user          # Generate user entities
 ```
 
 ### **Project Management Commands**
 ```bash
-./gonest.exe build                         # Build the application
-./gonest.exe run                           # Run the application
-./gonest.exe test                          # Run tests
-./gonest.exe --help                        # Show help
+gonest build                         # Build the application
+gonest run                           # Run the application
+gonest test                          # Run tests
+gonest --help                        # Show help
 ```
 
 ## 🔒 **Strict Mode Features**
@@ -229,7 +227,11 @@ my-app/
 
 #### **1. "command not found" error**
 ```bash
-# Make sure you're in the GoNest directory
+# If using global installation
+$ gonest --help
+# Should show help if installed correctly
+
+# If using local build, make sure you're in the GoNest directory
 $ pwd
 # Should show: /path/to/GoNest
 
@@ -255,11 +257,11 @@ $ chmod +x gonest
 ### **Getting Help**
 ```bash
 # Show general help
-$ ./gonest.exe --help
+$ gonest --help
 
 # Show command-specific help
-$ ./gonest.exe new --help
-$ ./gonest.exe generate --help
+$ gonest new --help
+$ gonest generate --help
 ```
 
 ## 🔄 **Updating the CLI Tool**
