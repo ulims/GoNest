@@ -20,34 +20,50 @@ A powerful, enterprise-grade Go web framework inspired by NestJS, designed for b
 
 ## 📁 Project Structure
 
-```
-GoNest/
-├── cmd/                    # CLI tools and executables
-│   └── gonest/           # GoNest CLI tool
-├── examples/              # Example applications
-│   ├── advanced/         # Advanced features demonstration
-│   ├── mongodb/          # MongoDB integration example
-│   └── architecture/     # NestJS-style modular architecture example
-├── docs/                 # Documentation
-├── scripts/              # Setup and automation scripts
-├── pkg/                  # Framework packages
-└── README.md            # This file
-```
-
-### Architecture Example Structure
-
-The `examples/architecture/` demonstrates the recommended NestJS-style modular structure:
+When you create a new GoNest application, you'll get a well-organized project structure that follows Go and NestJS best practices:
 
 ```
-examples/architecture/
-├── main.go                 # Application entry point
-├── main_module.go          # Root module that imports feature modules
-├── modules/                # Feature modules directory
-│   └── user/              # User feature module
-│       ├── user_module.go    # Module definition and registration
-│       ├── user_service.go   # Business logic layer
-│       └── user_controller.go # HTTP request handling
-└── README.md              # Module documentation
+my-gonest-app/
+├── cmd/
+│   └── server/
+│       └── main.go           # Application entry point
+├── internal/
+│   ├── modules/              # Feature modules (business domains)
+│   │   ├── user/            # User module example
+│   │   │   ├── user_module.go     # Module definition and DI setup
+│   │   │   ├── user_service.go    # Business logic layer
+│   │   │   ├── user_controller.go # HTTP request handlers
+│   │   │   └── user_dto.go        # Data transfer objects
+│   │   └── auth/            # Authentication module
+│   ├── config/              # Configuration management
+│   │   └── config.go
+│   ├── middleware/          # Custom middleware
+│   └── shared/              # Shared utilities and types
+├── pkg/                     # Public packages (if needed)
+├── scripts/                 # Build and deployment scripts
+├── docs/                    # Project documentation
+├── tests/                   # Integration and e2e tests
+├── .env                     # Environment variables
+├── .gitignore              # Git ignore rules
+├── go.mod                  # Go module definition
+├── go.sum                  # Dependency checksums
+├── Dockerfile              # Container configuration
+├── docker-compose.yml      # Multi-service setup
+└── README.md              # Project documentation
+```
+
+### Module Structure
+
+Each feature module follows a consistent, flat structure inspired by NestJS:
+
+```
+internal/modules/user/
+├── user_module.go          # Module registration and dependency injection
+├── user_controller.go      # HTTP request handling
+├── user_service.go         # Business logic implementation
+├── user_dto.go            # Request/response data structures
+├── user_entity.go         # Domain entities/models
+└── user_repository.go     # Data access layer (if needed)
 ```
 
 ## 🚀 Installation
@@ -170,26 +186,27 @@ Your application will be available at `http://localhost:8080`
 - **[🧪 Examples](examples/)** - Working examples and tutorials
 - **[🔧 Setup Scripts](scripts/README.md)** - Automated project initialization
 
-## 🎯 Architecture Example
+## 🎯 Architecture Principles
 
-The `examples/architecture/` demonstrates the recommended NestJS-style modular structure:
+GoNest follows proven architectural patterns inspired by NestJS:
 
-- **Flat Module Structure**: Each module contains its files directly without nested subdirectories
-- **Dependency Injection**: Services are automatically injected into controllers
-- **Clean Separation**: Clear boundaries between controller, service, and model layers
-- **Extensible Design**: Easy to add new modules following the same pattern
+- **🏗️ Modular Design**: Organize code into feature modules with clear boundaries
+- **💉 Dependency Injection**: Automatic dependency resolution and injection
+- **📱 Flat Module Structure**: Keep module files organized without deep nesting
+- **🔄 Separation of Concerns**: Controllers handle HTTP, Services handle business logic
+- **🧪 Testable by Design**: Easy to mock and test individual components
+- **📐 Consistent Patterns**: Every module follows the same organizational structure
 
-### Running the Architecture Example
+### Quick Start Example
 
-```bash
-# Navigate to the architecture example
-cd examples/architecture
+```go
+// Create a complete user module in minutes
+userModule := gonest.NewModule("UserModule").
+    Controller(userController).
+    Service(userService).
+    Build()
 
-# Build the application
-go build .
-
-# Run the application
-./architecture-example.exe
+app.ModuleRegistry.Register(userModule)
 ```
 
 ## 🛠️ CLI Tool
