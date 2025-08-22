@@ -50,11 +50,33 @@ examples/architecture/
 └── README.md              # Module documentation
 ```
 
-## 🚀 Quick Start
+## 🚀 Installation
 
-### Option 1: Automated Setup (Recommended)
+To get started, you can either scaffold the project with the **GoNest CLI**, or clone a starter project (both will produce the same outcome).
 
-Use our setup scripts to create a new GoNest project in seconds:
+To scaffold the project with the GoNest CLI, run the following commands. This will create a new project directory, and populate the directory with the initial core GoNest files and supporting modules, creating a conventional base structure for your project. Creating a new project with the **GoNest CLI** is recommended for first-time users. We'll continue with this approach in **First Steps**.
+
+```bash
+$ go install github.com/ulims/GoNest/cmd/gonest@latest
+$ gonest new project-name
+```
+
+> **HINT**  
+> To create a new Go project with stricter feature set, pass the `--strict` flag to the `gonest new` command.
+
+### Alternatives
+
+Alternatively, to install the Go starter project with **Git**:
+
+```bash
+$ git clone https://github.com/ulims/GoNest-starter.git project-name
+$ cd project-name
+$ go mod tidy
+```
+
+### Automated Setup Scripts
+
+For developers who prefer an automated setup process, GoNest provides powerful setup scripts:
 
 #### Linux/macOS
 ```bash
@@ -82,7 +104,7 @@ The setup scripts automatically:
 - ✅ Set up Docker and build automation
 - ✅ Create comprehensive documentation
 
-### Option 2: Manual Setup
+### Manual Installation
 
 If you prefer to set up manually:
 

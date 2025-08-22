@@ -226,7 +226,7 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
-	gonest "GoNest/gonest"
+	gonest "github.com/ulims/GoNest/gonest"
 	"MODULE_NAME/internal/config"
 )
 

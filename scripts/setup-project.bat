@@ -158,7 +158,7 @@ echo 	"os" >> cmd\server\main.go
 echo. >> cmd\server\main.go
 echo 	"github.com/joho/godotenv" >> cmd\server\main.go
 echo 	"github.com/sirupsen/logrus" >> cmd\server\main.go
-echo 	gonest "GoNest/gonest" >> cmd\server\main.go
+echo 	gonest "github.com/ulims/GoNest/gonest" >> cmd\server\main.go
 echo 	"%MODULE_NAME%/internal/config" >> cmd\server\main.go
 echo ) >> cmd\server\main.go
 echo. >> cmd\server\main.go

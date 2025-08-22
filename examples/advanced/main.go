@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	gonest "GoNest/gonest"
+	gonest "github.com/ulims/GoNest/gonest"
 
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"

@@ -2,6 +2,38 @@
 
 This guide will walk you through creating a new GoNest project from scratch, including folder setup, dependency initialization, and your first application.
 
+## 🚀 Installation
+
+To get started, you can either scaffold the project with the **GoNest CLI**, or use the automated setup scripts (both will produce the same outcome).
+
+To scaffold the project with the GoNest CLI, run the following commands. This will create a new project directory, and populate the directory with the initial core GoNest files and supporting modules, creating a conventional base structure for your project. Creating a new project with the **GoNest CLI** is recommended for first-time users.
+
+```bash
+$ go install github.com/ulims/GoNest/cmd/gonest@latest
+$ gonest new my-project-name
+```
+
+> **HINT**  
+> To create a new Go project with stricter feature set, pass the `--strict` flag to the `gonest new` command.
+
+### Alternatives
+
+Alternatively, to set up the Go project with **automated setup scripts**:
+
+```bash
+$ git clone https://github.com/ulims/GoNest.git
+$ cd GoNest
+$ ./scripts/setup-project.sh my-project-name
+```
+
+For Windows users:
+
+```cmd
+$ git clone https://github.com/ulims/GoNest.git
+$ cd GoNest
+$ scripts\setup-project.bat
+```
+
 ## 🚀 Prerequisites
 
 Before starting, ensure you have:

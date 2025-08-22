@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"GoNest/gonest"
+	"github.com/ulims/GoNest/gonest"
 
 	"github.com/sirupsen/logrus"
 )

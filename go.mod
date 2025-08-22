@@ -1,4 +1,4 @@
-module GoNest
+module github.com/ulims/GoNest
 
 go 1.25.0
 

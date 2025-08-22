@@ -3,7 +3,7 @@ module architecture-example
 go 1.25.0
 
 require (
-	GoNest v0.0.0-00010101000000-000000000000
+	github.com/ulims/GoNest v0.0.0-00010101000000-000000000000
 	github.com/labstack/echo/v4 v4.11.4
 	github.com/sirupsen/logrus v1.9.3
 )
@@ -30,4 +30,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace GoNest => ../../
+replace github.com/ulims/GoNest => ../../

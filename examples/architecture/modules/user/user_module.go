@@ -1,7 +1,7 @@
 package user
 
 import (
-	gonest "GoNest/gonest"
+	gonest "github.com/ulims/GoNest/gonest"
 
 	"github.com/sirupsen/logrus"
 )

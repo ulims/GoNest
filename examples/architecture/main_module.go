@@ -1,8 +1,9 @@
 package main
 
 import (
-	gonest "GoNest/gonest"
 	"architecture-example/modules/user"
+
+	gonest "github.com/ulims/GoNest/gonest"
 
 	"github.com/sirupsen/logrus"
 )
