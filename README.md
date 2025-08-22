@@ -68,48 +68,31 @@ internal/modules/user/
 
 ## 🚀 Installation
 
-To get started, you can either scaffold the project with the **GoNest CLI**, or clone a starter project (both will produce the same outcome).
+To get started, you can either use our **automated setup scripts** (recommended), or manually set up your project. Both approaches will produce the same outcome.
 
-To scaffold the project with the GoNest CLI, run the following commands. This will create a new project directory, and populate the directory with the initial core GoNest files and supporting modules, creating a conventional base structure for your project. Creating a new project with the **GoNest CLI** is recommended for first-time users. We'll continue with this approach in **First Steps**.
+### 🚀 Automated Setup (Recommended)
 
-```bash
-$ go install github.com/ulims/GoNest/cmd/gonest@latest
-$ gonest new project-name
-```
-
-> **HINT**  
-> To create a new Go project with stricter feature set, pass the `--strict` flag to the `gonest new` command.
-
-### Alternatives
-
-Alternatively, to install the Go starter project with **Git**:
-
-```bash
-$ git clone https://github.com/ulims/GoNest-starter.git project-name
-$ cd project-name
-$ go mod tidy
-```
-
-### Automated Setup Scripts
-
-For developers who prefer an automated setup process, GoNest provides powerful setup scripts:
+Our setup scripts provide the fastest and most reliable way to create a new GoNest project:
 
 #### Linux/macOS
 ```bash
-# Make the script executable
-chmod +x scripts/setup-project.sh
+# Clone the GoNest repository
+$ git clone https://github.com/ulims/GoNest.git
+$ cd GoNest
 
-# Run the script
-./scripts/setup-project.sh
-
-# Or run with a project name
-./scripts/setup-project.sh my-awesome-app
+# Make the script executable and run it
+$ chmod +x scripts/setup-project.sh
+$ ./scripts/setup-project.sh my-awesome-app
 ```
 
 #### Windows
 ```cmd
+# Clone the GoNest repository
+$ git clone https://github.com/ulims/GoNest.git
+$ cd GoNest
+
 # Run the batch script
-scripts\setup-project.bat
+$ scripts\setup-project.bat
 ```
 
 The setup scripts automatically:
@@ -120,21 +103,36 @@ The setup scripts automatically:
 - ✅ Set up Docker and build automation
 - ✅ Create comprehensive documentation
 
-### Manual Installation
+> **HINT**  
+> The setup scripts are the most reliable way to get started. They handle all dependencies and create a production-ready project structure.
 
+### Alternatives
+
+#### Manual Setup
 If you prefer to set up manually:
 
 ```bash
 # Create a new directory for your project
-mkdir my-gonest-app
-cd my-gonest-app
+$ mkdir my-gonest-app
+$ cd my-gonest-app
 
 # Initialize Go module
-go mod init my-gonest-app
+$ go mod init my-gonest-app
 
 # Add GoNest dependency
-go get github.com/ulims/GoNest
+$ go get github.com/ulims/GoNest
 ```
+
+#### Starter Project (Coming Soon)
+We're working on a starter project repository for even faster setup:
+
+```bash
+$ git clone https://github.com/ulims/GoNest-starter.git project-name
+$ cd project-name
+$ go mod tidy
+```
+
+
 
 ### Basic Application Structure
 
@@ -209,26 +207,20 @@ userModule := gonest.NewModule("UserModule").
 app.ModuleRegistry.Register(userModule)
 ```
 
-## 🛠️ CLI Tool
+## 🛠️ CLI Tool (Coming Soon)
 
-GoNest includes a powerful CLI tool for project management:
+GoNest will include a powerful CLI tool for project management. Currently in development:
 
 ```bash
-# Install CLI tool
-go install github.com/ulims/GoNest/cmd/gonest@latest
-
-# Create new project
-gonest new my-project
-
-# Build project
-gonest build
-
-# Run project
-gonest run
-
-# Run tests
-gonest test
+# Future CLI commands (not yet available)
+gonest new my-project      # Create new project
+gonest build               # Build project
+gonest run                 # Run project
+gonest test                # Run tests
 ```
+
+> **NOTE**  
+> The CLI tool is currently in development. For now, use our [automated setup scripts](#-automated-setup-recommended) for the best experience.
 
 ## 🔧 Key Components
 

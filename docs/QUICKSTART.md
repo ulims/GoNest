@@ -4,34 +4,68 @@ This guide will walk you through creating a new GoNest project from scratch, inc
 
 ## 🚀 Installation
 
-To get started, you can either scaffold the project with the **GoNest CLI**, or use the automated setup scripts (both will produce the same outcome).
+To get started, you can either use our **automated setup scripts** (recommended), or manually set up your project. Both approaches will produce the same outcome.
 
-To scaffold the project with the GoNest CLI, run the following commands. This will create a new project directory, and populate the directory with the initial core GoNest files and supporting modules, creating a conventional base structure for your project. Creating a new project with the **GoNest CLI** is recommended for first-time users.
+### 🚀 Automated Setup (Recommended)
 
+Our setup scripts provide the fastest and most reliable way to create a new GoNest project:
+
+#### Linux/macOS
 ```bash
-$ go install github.com/ulims/GoNest/cmd/gonest@latest
-$ gonest new my-project-name
-```
-
-> **HINT**  
-> To create a new Go project with stricter feature set, pass the `--strict` flag to the `gonest new` command.
-
-### Alternatives
-
-Alternatively, to set up the Go project with **automated setup scripts**:
-
-```bash
+# Clone the GoNest repository
 $ git clone https://github.com/ulims/GoNest.git
 $ cd GoNest
+
+# Make the script executable and run it
+$ chmod +x scripts/setup-project.sh
 $ ./scripts/setup-project.sh my-project-name
 ```
 
-For Windows users:
-
+#### Windows
 ```cmd
+# Clone the GoNest repository
 $ git clone https://github.com/ulims/GoNest.git
 $ cd GoNest
+
+# Run the batch script
 $ scripts\setup-project.bat
+```
+
+The setup scripts automatically:
+- ✅ Create the recommended project structure
+- ✅ Initialize Go module and Git repository
+- ✅ Install all GoNest dependencies
+- ✅ Generate configuration files
+- ✅ Set up Docker and build automation
+- ✅ Create comprehensive documentation
+
+> **HINT**  
+> The setup scripts are the most reliable way to get started. They handle all dependencies and create a production-ready project structure.
+
+### Alternatives
+
+#### Manual Setup
+If you prefer to set up manually:
+
+```bash
+# Create a new directory for your project
+$ mkdir my-gonest-app
+$ cd my-gonest-app
+
+# Initialize Go module
+$ go mod init my-gonest-app
+
+# Add GoNest dependency
+$ go get github.com/ulims/GoNest
+```
+
+#### CLI Tool (Coming Soon)
+We're working on a CLI tool for even faster setup:
+
+```bash
+# Future CLI commands (not yet available)
+$ go install github.com/ulims/GoNest/cmd/gonest@latest
+$ gonest new my-project-name
 ```
 
 ## 🚀 Prerequisites
