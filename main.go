@@ -3,15 +3,13 @@ package main
 
 import (
 	"fmt"
-	"log"
-
-	"github.com/ulims/GoNest/gonest"
 
 	"github.com/sirupsen/logrus"
+	"github.com/ulims/GoNest/gonest"
 )
 
 func main() {
-	fmt.Println("🚀 GoNest Framework Demo")
+	fmt.Println("🚀 Testing GoNest Framework Import")
 
 	// Initialize logger
 	logger := logrus.New()
@@ -27,14 +25,11 @@ func main() {
 		Logger(logger).
 		Build()
 
-	logger.Info("✅ GoNest application created successfully!")
+	logger.Info("✅ GoNest framework imported successfully!")
 	logger.Info("🌍 Framework is ready to use!")
 	logger.Infof("📱 Application configured for %s:%s", app.Config.Host, app.Config.Port)
 
-	// Note: This is a demo - in a real application you would:
-	// 1. Register modules
-	// 2. Set up routes
-	// 3. Start the server with app.Start()
-
-	log.Println("Demo completed successfully!")
+	fmt.Println("🎉 Manual installation test successful!")
+	fmt.Println("✅ Framework can be imported and used")
+	fmt.Println("✅ Manual installation method now works!")
 }
