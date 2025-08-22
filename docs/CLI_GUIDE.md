@@ -14,10 +14,10 @@ This guide is specifically designed for **external developers** who want to use 
 #### **1. One-Line Installation (Recommended)**
 ```bash
 # Linux/macOS
-$ curl -sSL https://raw.githubusercontent.com/ulims/GoNest/main/install-gonest.sh | bash
+$ curl -sSL https://raw.githubusercontent.com/ulims/GoNest/master/install-gonest.sh | bash
 
 # Windows
-$ curl -o install-gonest.bat https://raw.githubusercontent.com/ulims/GoNest/main/install-gonest.bat
+$ curl -o install-gonest.bat https://raw.githubusercontent.com/ulims/GoNest/master/install-gonest.bat
 $ install-gonest.bat
 ```
 

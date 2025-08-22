@@ -232,13 +232,13 @@ GoNest includes a powerful CLI tool for project scaffolding and component genera
 
 **Linux/macOS:**
 ```bash
-$ curl -sSL https://raw.githubusercontent.com/ulims/GoNest/main/install-gonest.sh | bash
+$ curl -sSL https://raw.githubusercontent.com/ulims/GoNest/master/install-gonest.sh | bash
 ```
 
 **Windows:**
 ```cmd
 # Download and run the installer
-$ curl -o install-gonest.bat https://raw.githubusercontent.com/ulims/GoNest/main/install-gonest.bat
+$ curl -o install-gonest.bat https://raw.githubusercontent.com/ulims/GoNest/master/install-gonest.bat
 $ install-gonest.bat
 ```
 

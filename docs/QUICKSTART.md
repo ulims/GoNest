@@ -12,7 +12,7 @@ Our CLI tool provides the fastest and most reliable way to create a new GoNest p
 
 ```bash
 # 1. Install GoNest CLI globally (Recommended)
-$ curl -sSL https://raw.githubusercontent.com/ulims/GoNest/main/install-gonest.sh | bash
+$ curl -sSL https://raw.githubusercontent.com/ulims/GoNest/master/install-gonest.sh | bash
 
 # 2. Verify installation
 $ gonest --help
@@ -84,7 +84,7 @@ GoNest includes a powerful CLI tool for project scaffolding and component genera
 
 ```bash
 # 1. Install GoNest CLI globally (Recommended)
-$ curl -sSL https://raw.githubusercontent.com/ulims/GoNest/main/install-gonest.sh | bash
+$ curl -sSL https://raw.githubusercontent.com/ulims/GoNest/master/install-gonest.sh | bash
 
 # 2. Verify installation
 $ gonest --help
