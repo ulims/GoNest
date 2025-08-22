@@ -123,14 +123,7 @@ $ go mod init my-gonest-app
 $ go get github.com/ulims/GoNest
 ```
 
-#### Starter Project (Coming Soon)
-We're working on a starter project repository for even faster setup:
 
-```bash
-$ git clone https://github.com/ulims/GoNest-starter.git project-name
-$ cd project-name
-$ go mod tidy
-```
 
 
 

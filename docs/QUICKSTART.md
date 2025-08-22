@@ -68,6 +68,9 @@ $ go install github.com/ulims/GoNest/cmd/gonest@latest
 $ gonest new my-project-name
 ```
 
+> **NOTE**  
+> Unlike NestJS, GoNest focuses on providing powerful setup scripts rather than separate starter repositories. This approach gives you more control and keeps everything in one place.
+
 ## 🚀 Prerequisites
 
 Before starting, ensure you have:
